@@ -2,7 +2,7 @@
 FROM node:20.15.0
 
 # Establece el directorio de trabajo en el contenedor
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 # Copia los archivos package.json y package-lock.json (si está disponible)
 COPY package*.json ./
