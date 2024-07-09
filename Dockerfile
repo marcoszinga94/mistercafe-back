@@ -5,5 +5,5 @@ RUN npm install
 COPY ./src ./src
 EXPOSE 3000
 CMD [ "node", "src/index.js" ]
-RUN ls -R /usr/src/app
+RUN ls -R /usr/src
 RUN pwd
