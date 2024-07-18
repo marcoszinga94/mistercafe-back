@@ -26,23 +26,21 @@ app.get('/', (req, res) => {
 // Endpoint para crear preferencia de pago
 app.post('/pay', async (req, res) => {
     console.log("Received body:", req.body);
-
     try {
-        const { title, quantity, unit_price } = req.body;
-
-        if (!title || !quantity || !unit_price) {
-            return res.status(400).json({ error: 'Faltan datos requeridos' });
+        const { items } = req.body;
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            return res.status(400).json({ error: 'Se requiere un array de items válido' });
         }
 
+        const preferenceItems = items.map(item => ({
+            title: item.title,
+            quantity: Number(item.quantity),
+            unit_price: Number(item.unit_price),
+            currency_id: 'ARS'
+        }));
+
         const preferenceData = {
-            items: [
-                {
-                    title: title,
-                    quantity: Number(quantity),
-                    unit_price: Number(unit_price),
-                    currency_id: 'ARS'
-                }
-            ],
+            items: preferenceItems,
             back_urls: {
                 success: 'https://tu-sitio.com/success',
                 failure: 'https://tu-sitio.com/failure',
@@ -51,10 +49,8 @@ app.post('/pay', async (req, res) => {
             auto_return: "approved"
         };
 
-
         const preference = new Preference(client);
         const result = await preference.create({ body: preferenceData });
-
         res.json({
             id: result.id,
         });
