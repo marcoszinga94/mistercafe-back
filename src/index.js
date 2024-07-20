@@ -42,9 +42,9 @@ app.post('/pay', async (req, res) => {
         const preferenceData = {
             items: preferenceItems,
             back_urls: {
-                success: 'https://tu-sitio.com/success',
-                failure: 'https://tu-sitio.com/failure',
-                pending: 'https://tu-sitio.com/pending'
+                success: 'https://mistercafe.vercel.app/success',
+                failure: 'https://mistercafe.vercel.app/failure',
+                pending: 'https://mistercafe.vercel.app/pending'
             },
             auto_return: "approved"
         };
@@ -64,5 +64,5 @@ app.post('/pay', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Servidor en puerto ${port}`);
+    console.log(`Servidor en puerto http://localhost:${port}`);
 });
