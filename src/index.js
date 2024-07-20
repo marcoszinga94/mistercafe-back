@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 // Endpoint para crear preferencia de pago
 app.post('/pay', async (req, res) => {
-    console.log("Received body:", req.body);
+
     try {
         const { items } = req.body;
         if (!items || !Array.isArray(items) || items.length === 0) {
@@ -50,6 +50,7 @@ app.post('/pay', async (req, res) => {
         };
 
         const preference = new Preference(client);
+
         const result = await preference.create({ body: preferenceData });
         res.json({
             id: result.id,
@@ -61,6 +62,10 @@ app.post('/pay', async (req, res) => {
             details: error.message
         });
     }
+});
+
+app.use((req, res) => {
+    res.status(404).send("404 Not Found");
 });
 
 app.listen(port, () => {
